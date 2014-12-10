@@ -1,0 +1,7 @@
+﻿Captain
+Ship
+Port
+City
+Trip
+Cargo
+CargoType

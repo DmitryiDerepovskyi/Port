@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerPort.Model", "Port.Model\ManagerPort.Model.csproj", "{0D37C487-5F62-4645-80E0-F1691AFDC13E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerPort.App", "Port.App\ManagerPort.App.csproj", "{80095C21-64A2-4579-941D-C8002448EE78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D37C487-5F62-4645-80E0-F1691AFDC13E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D37C487-5F62-4645-80E0-F1691AFDC13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D37C487-5F62-4645-80E0-F1691AFDC13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D37C487-5F62-4645-80E0-F1691AFDC13E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80095C21-64A2-4579-941D-C8002448EE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80095C21-64A2-4579-941D-C8002448EE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80095C21-64A2-4579-941D-C8002448EE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80095C21-64A2-4579-941D-C8002448EE78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
