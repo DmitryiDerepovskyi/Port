@@ -6,6 +6,8 @@ namespace Port.App.ClassItemMenu
     class PortItem : ItemMenu
     {
         readonly IRepository<Model.ClassModel.Port> _repository = new PortRepository();
+        private const string HeadTable = "Id\tFirstName  LastName  HasShip";
+
         public override void Add()
         {
             var newPort = new Model.ClassModel.Port();

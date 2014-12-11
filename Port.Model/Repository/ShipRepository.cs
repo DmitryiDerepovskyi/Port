@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using Port.Model.ClassModel;
+using ManagerPort.SupportClass;
 
 namespace Port.Model.Repository
 {
@@ -29,15 +30,15 @@ namespace Port.Model.Repository
                                 while (dr.Read())
                                 {
                                     ships.Add(new Ship
-                                    {
-                                        Id = int.Parse(dr["Id"].ToString()),
-                                        CaptainId = int.Parse(dr["CaptainId"].ToString()),
-                                        Number = int.Parse(dr["Number"].ToString()),
-                                        Capacity = int.Parse(dr["Capacity"].ToString()),
-                                        DateCreate = dr["CreateDate"].ToString(),
-                                        MaxDistance = int.Parse(dr["MaxDistance"].ToString()),
-                                        TeamCount = int.Parse(dr["TeamCount"].ToString())
-                                    });
+                                        (
+                                        int.Parse(dr["Id"].ToString()),
+                                        ValidateInputData.ConvertToNullableInt(dr["CaptainId"].ToString()),
+                                        int.Parse(dr["Number"].ToString()),
+                                        int.Parse(dr["Capacity"].ToString()),
+                                        DateTime.Parse(dr["CreateDate"].ToString()),
+                                        int.Parse(dr["MaxDistance"].ToString()),
+                                        int.Parse(dr["TeamCount"].ToString())
+                                    ));
                                 }
                             }
                         }
@@ -140,6 +141,14 @@ namespace Port.Model.Repository
                         cmd.CommandType = CommandType.StoredProcedure;
                         var param = new SqlParameter
                         {
+                            ParameterName = "@Id",
+                            SqlDbType = SqlDbType.Int,
+                            Value = item.Id,
+                            Direction = ParameterDirection.Input
+                        };
+                        cmd.Parameters.Add(param);
+                        param = new SqlParameter
+                        {
                             ParameterName = "@CaptainId",
                             SqlDbType = SqlDbType.Int,
                             Value = item.CaptainId,
@@ -234,10 +243,9 @@ namespace Port.Model.Repository
             }
         }
 
-
         public Ship SearchById(int id)
         {
-            var item = new Ship();
+            Ship item = null;
             using (var cn = new SqlConnection())
             {
                 cn.ConnectionString = _connStr;
@@ -257,21 +265,23 @@ namespace Port.Model.Repository
                         cn.Open();
                         using (var dr = cmd.ExecuteReader())
                         {
-                            if (dr.HasRows)
-                            {
-                                dr.Read();
-                                item.Id = int.Parse(dr["Id"].ToString());
-                                item.CaptainId = int.Parse(dr["CaptainId"].ToString());
-                                item.Number = int.Parse(dr["Number"].ToString());
-                                item.Capacity = int.Parse(dr["Capacity"].ToString());
-                                item.DateCreate = dr["CreateDate"].ToString();
-                                item.MaxDistance = int.Parse(dr["MaxDistance"].ToString());
-                                item.TeamCount = int.Parse(dr["TeamCount"].ToString());
-                            }
+                            if (!dr.HasRows) return null;
+                            dr.Read();
+                            int? captainId;
+                            if (dr["CaptainId"].ToString() == String.Empty)
+                                captainId = null;
                             else
-                            {
-                                item = null;
-                            }
+                                captainId = int.Parse(dr["CaptainId"].ToString());
+                            item = new Ship
+                                (
+                                int.Parse(dr["Id"].ToString()),
+                                captainId,
+                                int.Parse(dr["Number"].ToString()),
+                                int.Parse(dr["Capacity"].ToString()),
+                                DateTime.Parse(dr["CreateDate"].ToString()),
+                                int.Parse(dr["MaxDistance"].ToString()),
+                                int.Parse(dr["TeamCount"].ToString())
+                                );
                         }
                     }
                 }

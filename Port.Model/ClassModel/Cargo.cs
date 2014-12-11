@@ -6,7 +6,7 @@ namespace Port.Model.ClassModel
     {
         public Cargo(){}
 
-        public Cargo(int id, int number, int tripId, int typeId, int weightCargo, int price, int insurancePrice)
+        public Cargo(int id, int number, int tripId, int typeId, int weightCargo, double price, double insurancePrice)
         {
             Id = id;
             Number = number;
@@ -17,7 +17,7 @@ namespace Port.Model.ClassModel
             InsurancePrice = insurancePrice;
         }
 
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public int Number { get; set; }
         public int TripId { get; set; }
         public int TypeId { get; set; }
@@ -27,7 +27,7 @@ namespace Port.Model.ClassModel
 
         public override string ToString()
         {
-            return String.Format("{0:000000}\t{1:########}     {2:000000}     {3:000000}      {4:#######}        {5}         {6}"
+            return String.Format("{0,6:000000}  {1,6}  {2,6:000000}  {3,6:000000}  {4,11}  {5,5}\t{6,14}"
                 , Id, Number, TypeId, TripId, WeightCargo, Price, InsurancePrice);
         }
     }

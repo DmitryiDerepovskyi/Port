@@ -2,22 +2,19 @@
 using Port.Model.ClassModel;
 using Port.Model.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Port.App.ClassItemMenu
 {
     class CaptainItem : ItemMenu
     {
         readonly IRepository<Captain> _repository = new CaptainRepository();
+        private const string HeadTable = "Id\tFirstName  LastName  HasShip";
+
         public override void Add()
         {
             var newCaptain = new Captain();
             Console.WriteLine("Input firstname a captain");
             newCaptain.FirstName = ValidateInputData.InputName();
-            Console.Clear();
             Console.WriteLine("Input lastname a captain");
             newCaptain.LastName = ValidateInputData.InputName();
             _repository.Create(newCaptain);
@@ -52,7 +49,7 @@ namespace Port.App.ClassItemMenu
             }
             else
             {
-                Console.WriteLine("Id\tFirstName\tLastName");
+                Console.WriteLine(HeadTable);
                 Console.WriteLine(captain.ToString());
             }
             Console.WriteLine("Update this record?(y)");
@@ -63,6 +60,7 @@ namespace Port.App.ClassItemMenu
                 captain.FirstName = ValidateInputData.InputName();
                 Console.WriteLine("Input new lastname captain");
                 captain.LastName = ValidateInputData.InputName();
+                ((CaptainRepository) _repository).SetNullShipId();
                 _repository.Update(captain);
             }
 
@@ -79,14 +77,14 @@ namespace Port.App.ClassItemMenu
             }
             else
             {
-                Console.WriteLine("Id\tFirstName\tLastName");
+                Console.WriteLine(HeadTable);
                 Console.WriteLine(captain.ToString());
             }
         }
 
         public override void PrintAll()
         {
-            Console.WriteLine("Id\tFirstName\tLastName");
+            Console.WriteLine(HeadTable);
             foreach (var item in _repository.GetItemsList())
             {
                 Console.WriteLine(item.ToString());

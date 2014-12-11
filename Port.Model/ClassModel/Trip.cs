@@ -6,7 +6,7 @@ namespace Port.Model.ClassModel
     {
         public Trip(){}
 
-        public Trip(int id,int portToId,int portFromId,string startDate, string endDate, int captainId,int shipId)
+        public Trip(int id, int? shipId, int? captainId, int portFromId,int portToId, DateTime startDate, DateTime endDate)
         {
             Id = id;
             PortToId = portToId;
@@ -17,18 +17,18 @@ namespace Port.Model.ClassModel
             ShipId = shipId;
         }
 
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public int PortToId { get; set; }
         public int PortFromId { get; set; }
-        public int CaptainId { get; set; }
-        public int ShipId { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        public int? CaptainId { get; set; }
+        public int? ShipId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public override string ToString()
         {
-            return String.Format("{0:000000}\t{1:000000}     {2:000000}     {3:000000}      {4:000000}    {5:d}   {6:d}"
-                , Id, ShipId, CaptainId, PortToId, PortFromId, DateTime.Parse(StartDate), DateTime.Parse(EndDate));
+            return String.Format("{0:000000}\t{1,6:000000}     {2,6:000000}     {3,6:000000}      {4,6:000000}    {5:d}   {6:d}"
+                , Id, ShipId, CaptainId, PortToId, PortFromId, StartDate,EndDate);
         }
     }
 }

@@ -26,12 +26,12 @@ namespace Port.Model.Repository
                         {
                             while (dr.Read())
                             {
-                                types.Add(new Captain
-                                {
-                                    Id = int.Parse(dr["Id"].ToString()),
-                                    FirstName = dr["FirstName"].ToString(),
-                                    LastName = dr["LastName"].ToString(),
-                                });
+                                types.Add(new Captain(
+                                    int.Parse(dr["Id"].ToString()),
+                                    dr["FirstName"].ToString(),
+                                    dr["LastName"].ToString(),
+                                    bool.Parse(dr["HasShip"].ToString())
+                                ));
                             }
                         }
                     }
@@ -171,13 +171,17 @@ namespace Port.Model.Repository
             }
         }
 
+        public void SetNullShipId()
+        {
+            Console.WriteLine("ShipId null");
+        }
 
         public Captain SearchById(int id)
         {
-            var item = new Captain();
             using (var cn = new SqlConnection())
             {
                 cn.ConnectionString = _connStr;
+                Captain item;
                 try
                 {
                     using (var cmd = new SqlCommand("SearchByIdCaptain", cn))
@@ -196,15 +200,19 @@ namespace Port.Model.Repository
                         {
                             if (!dr.HasRows) return null;
                             dr.Read();
-                            item.Id = int.Parse(dr["Id"].ToString());
-                            item.FirstName = dr["FirstName"].ToString();
-                            item.LastName = dr["LastName"].ToString();
+                            item = new Captain(
+                                int.Parse(dr["Id"].ToString()),
+                                dr["FirstName"].ToString(),
+                                dr["LastName"].ToString(),
+                                bool.Parse(dr["HasShip"].ToString())
+                            );
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
+                    item = null;
                 }
                 finally
                 {

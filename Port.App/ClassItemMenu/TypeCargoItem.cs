@@ -8,6 +8,8 @@ namespace Port.App.ClassItemMenu
     class TypeCargoItem : ItemMenu
     {
         readonly IRepository<TypeCargo> _repository = new TypeCargoRepository();
+        private const string HeadTable = "Id\tType";
+
         public override void Add()
         {
             var newTypeCargo = new TypeCargo();
@@ -44,7 +46,7 @@ namespace Port.App.ClassItemMenu
             }
             else
             {
-                Console.WriteLine("Id\tType");
+                Console.WriteLine(HeadTable);
                 Console.WriteLine(typeCargo.ToString());
             }
             Console.WriteLine("Update this record?(y)");
@@ -66,14 +68,14 @@ namespace Port.App.ClassItemMenu
             }
             else
             {
-                Console.WriteLine("Id\tType");
+                Console.WriteLine(HeadTable);
                 Console.WriteLine(typeCargo.ToString());
             }
         }
 
         public override void PrintAll()
         {
-            Console.WriteLine("Id\tType");
+            Console.WriteLine(HeadTable);
             foreach (var item in _repository.GetItemsList())
             {
                 Console.WriteLine(item.ToString());

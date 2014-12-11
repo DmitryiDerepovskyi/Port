@@ -6,9 +6,10 @@ namespace Port.Model.ClassModel
     {
         public Ship(){}
 
-        public Ship(int id,int number,int capacity,string dateCreate, int maxDistance,int teamCount)
+        public Ship(int id, int? captainId, int number,int capacity,DateTime dateCreate, int maxDistance,int teamCount)
         {
             Id = id;
+            CaptainId = captainId;
             Number = number;
             Capacity = capacity;
             DateCreate = dateCreate;
@@ -16,18 +17,18 @@ namespace Port.Model.ClassModel
             TeamCount = teamCount;
         }
 
-        public int Id { get; set; }
-        public int CaptainId { get; set; }
+        public int Id { get; private set; }
+        public int? CaptainId { get; set; }
         public int Number { get; set; }
         public int Capacity { get; set; }
-        public string DateCreate { get; set; }
+        public DateTime DateCreate { get; set; }
         public int MaxDistance { get; set; }
         public int TeamCount { get; set; }
 
         public override string ToString()
         {
-            return String.Format("{0:000000}\t{1:000000}\t   {2}\t   {3}   {4:d}\t{5}\t\t{6}"
-                ,Id,CaptainId,Number,Capacity,DateTime.Parse(DateCreate),MaxDistance,TeamCount);
+            return String.Format("{0:000000}\t{1,9:000000}  {2,6}  {3,8}  {4:d}  {5,11}  {6,8}"
+                ,Id,CaptainId,Number,Capacity, DateCreate,MaxDistance,TeamCount);
         }
     }
 }

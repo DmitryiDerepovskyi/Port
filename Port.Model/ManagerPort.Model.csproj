@@ -57,6 +57,12 @@
     <Compile Include="ClassModel\Trip.cs" />
     <Compile Include="ClassModel\TypeCargo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ManagerPort.SupportClass\ManagerPort.SupportClass.csproj">
+      <Project>{2d62895d-1c42-4228-bf3f-dc04ab8904c5}</Project>
+      <Name>ManagerPort.SupportClass</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

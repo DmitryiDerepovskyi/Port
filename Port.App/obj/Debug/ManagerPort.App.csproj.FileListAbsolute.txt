@@ -6,3 +6,5 @@ C:\Users\Dmitry\Desktop\projects\Port\Port.App\bin\Debug\Port.Model.pdb
 C:\Users\Dmitry\Desktop\projects\Port\Port.App\obj\Debug\ManagerPort.App.csprojResolveAssemblyReference.cache
 C:\Users\Dmitry\Desktop\projects\Port\Port.App\obj\Debug\Port.App.exe
 C:\Users\Dmitry\Desktop\projects\Port\Port.App\obj\Debug\Port.App.pdb
+C:\Users\Dmitry\Desktop\projects\Port\Port.App\bin\Debug\ManagerPort.SupportClass.dll
+C:\Users\Dmitry\Desktop\projects\Port\Port.App\bin\Debug\ManagerPort.SupportClass.pdb

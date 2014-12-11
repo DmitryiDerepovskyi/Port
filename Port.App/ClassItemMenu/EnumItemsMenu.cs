@@ -2,7 +2,7 @@
 {
     public enum EnumItemsMenu
     {
-        Captain = 0,
+        Captain,
         Ship,
         Port,
         City,

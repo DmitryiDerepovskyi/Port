@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace Port.App.ClassItemMenu
+namespace Port.App
 {
     public static class ValidateInputData
     {
@@ -51,20 +47,32 @@ namespace Port.App.ClassItemMenu
             return name;
         }
 
-        internal static string InputDate()
+        public static DateTime InputDate()
         {
-            var date = String.Empty;
+            var dateTime = new DateTime();
             var isWrongDate = true;
             while (isWrongDate)
             {
-                var dateTime = new DateTime();
-                date = Console.ReadLine();
+                var date = Console.ReadLine();
                 isWrongDate = !DateTime.TryParse(date, out dateTime);
                 if (isWrongDate)
                     Console.WriteLine("Incorrect data!");
-                date = dateTime.ToShortDateString();
             }
-            return date;
+            return dateTime;
+        }
+        public static int? ConvertToNullableInt(string str)
+        {
+            if (str == String.Empty)
+                return null;
+            try
+            {
+                return int.Parse(str);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
     }
 }

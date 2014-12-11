@@ -29,23 +29,23 @@ namespace Port.App
         //
         private ItemMenu _itemMenu;
         // верхний левый угол меню  
-        const int LEFT = 7;
-        const int TOP = 3;
+        const int Left = 7;
+        const int Top = 3;
         // текущая место положение
         string _pathCurrentMenu;
         // текущая операция
         string _operation;
         // имя файла, где хранится footer
-        const string _footerOperation = "Press Enter to repeat operation, Esc- exit";
-        const string _footerMenu = "Press Enter to skip, Esc - exit";
+        const string FooterOperation = "Press Enter to repeat operation, Esc- exit";
+        const string FooterMenu = "Press Enter to skip, Esc - exit";
         // меню
         string _menu;
         // номер выбраного элемента меню
         int _numberItemMenu;
         // объект курсора
-        Cursor cursor = Cursor.Create();
+        readonly Cursor _cursor = Cursor.Create();
         // введеный символ
-        ConsoleKey choose;
+        ConsoleKey _choose;
         #endregion
         /// <summary>
         /// Запуск консоли
@@ -62,7 +62,7 @@ namespace Port.App
                 bool performOperation;
                 if (_itemMenu != null)
                 {
-                    performOperation = _itemMenu.OperationItemMenu.ContainsKey(_operation) && choose == ConsoleKey.Enter;
+                    performOperation = _itemMenu.OperationItemMenu.ContainsKey(_operation) && _choose == ConsoleKey.Enter;
                 }
                 else
                 {
@@ -73,16 +73,16 @@ namespace Port.App
                 else
                 {
                     _menu = PrintMainMenu();
-                    if(_pathCurrentMenu.IndexOf(".") == -1)
+                    if (_pathCurrentMenu.IndexOf(".", StringComparison.CurrentCulture) == -1)
                         _itemMenu = FactoryItemsMenu.CreateItemMenu(_numberItemMenu);
                 }
                 PrintFooter(performOperation);
                 PrintCursor(_menu);
-                choose = Console.ReadKey(true).Key;
+                _choose = Console.ReadKey(true).Key;
                
                 try
                 {
-                    _navigationMenu[choose]();
+                    _navigationMenu[_choose]();
                 }
                 catch (KeyNotFoundException e)
                 {
@@ -104,24 +104,24 @@ namespace Port.App
             _numberItemMenu = Math.Max(0, _numberItemMenu);
             _numberItemMenu = Math.Min(maxNumberOfItemMenu, _numberItemMenu);
             // рисуем курсор в указаной позиции
-            cursor.SetCursor(TOP + _numberItemMenu, LEFT);
-            cursor.Print();
+            _cursor.SetCursor(Top + _numberItemMenu, Left);
+            _cursor.Print();
         }
 
         // Выполнение операции
         private void PerformOperation()
         {
                 Console.CursorVisible = true;
-                cursor.visible = false;
+                _cursor.visible = false;
                 _itemMenu.OperationItemMenu[_operation]();
                 Console.CursorVisible = false;
         }
         // Вывод меню
         string PrintMainMenu()
         {
-            cursor.visible = true;
+            _cursor.visible = true;
             // поместим сюда меню
-            var _sbmenu = new StringBuilder();
+            var sbmenu = new StringBuilder();
             // ищем файл с заданным именем
             string path = PathFolder(_pathCurrentMenu);
             if (!File.Exists(path))
@@ -134,63 +134,63 @@ namespace Port.App
                 using (StreamReader sr = File.OpenText(path))
                 {
                     //start position for menu
-                    cursor.SetCursor(TOP, LEFT);
+                    _cursor.SetCursor(Top, Left);
                     while (!sr.EndOfStream)
                     {
                         string buffer = sr.ReadLine();
-                        _sbmenu.AppendLine(buffer);
-                        cursor.SetCursor(cursor.top, LEFT);
+                        sbmenu.AppendLine(buffer);
+                        _cursor.SetCursor(_cursor.top, Left);
                         Console.WriteLine(buffer);
-                        cursor.top++;
+                        _cursor.top++;
                     }
                 }
             }
-            return _sbmenu.ToString();
+            return sbmenu.ToString();
         }
         // получения пути к файлу
         string PathFolder(string currentFolder)
         {
-            int indexPoint = currentFolder.LastIndexOf(".");
-            string PathToBinDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).ToString();
-            return Directory.GetParent(PathToBinDirectory) + "\\Menu\\" + currentFolder.Substring(indexPoint + 1, currentFolder.Length - indexPoint - 1) + ".txt";  
+            int indexPoint = currentFolder.LastIndexOf(".", StringComparison.CurrentCulture);
+            string pathToBinDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).ToString();
+            return Directory.GetParent(pathToBinDirectory) + "\\Menu\\" + currentFolder.Substring(indexPoint + 1, currentFolder.Length - indexPoint - 1) + ".txt";  
         }
         void PrintFooter(bool performOperation)
         {
             int height = Math.Max(Console.CursorTop,Console.WindowHeight - 1);
-            cursor.SetCursor(height, 0);
+            _cursor.SetCursor(height, 0);
             if (performOperation)
-                Console.Write(_footerOperation);
+                Console.Write(FooterOperation);
             else
-                Console.Write(_footerMenu);
+                Console.Write(FooterMenu);
         }
         void PrintLocation()
         {
             //position Path
-            cursor.SetCursor(0, 2);
+            _cursor.SetCursor(0, 2);
             Console.WriteLine(_pathCurrentMenu);
         }
         // переместить курсор вниз
         void DownCursor()
         {
-            if (cursor.visible)
+            if (_cursor.visible)
                 _numberItemMenu++;
         }
         // вверх
         void UpCursor()
         {
-            if (cursor.visible)
+            if (_cursor.visible)
                 _numberItemMenu--;
         }
 
         //выбрать пункт меню
         void EnterMenuItem()
         {
-            if (cursor.visible)
+            if (_cursor.visible)
             {
                 string nextMenu;
                 try
                 {
-                    nextMenu = _menu.Split('\n')[cursor.top - TOP];
+                    nextMenu = _menu.Split('\n')[_cursor.top - Top];
                 }
                 catch(IndexOutOfRangeException)
                 {
@@ -208,7 +208,7 @@ namespace Port.App
         // вернуться в передыдущее меню
         void EscapeMenu()
         {
-            int indexPoint = _pathCurrentMenu.IndexOf(".");
+            int indexPoint = _pathCurrentMenu.IndexOf(".", StringComparison.CurrentCulture);
             if (indexPoint == -1)
                 Exit();
             _pathCurrentMenu = _pathCurrentMenu.Remove(indexPoint, _pathCurrentMenu.Length - indexPoint);

@@ -4,13 +4,13 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using Port.Model.ClassModel;
-
+using ManagerPort.SupportClass;
 namespace Port.Model.Repository
 {
     public class TripRepository : IRepository<Trip>
     {
         readonly string _connStr = ConfigurationManager.ConnectionStrings["PortDb"].ConnectionString;
-
+      
         public List<Trip> GetItemsList()
         {
             var trips = new List<Trip>();
@@ -29,15 +29,15 @@ namespace Port.Model.Repository
                                 while (dr.Read())
                                 {
                                     trips.Add(new Trip
-                                    {
-                                        Id = int.Parse(dr["Id"].ToString()),
-                                        ShipId = int.Parse(dr["ShipId"].ToString()),
-                                        CaptainId = int.Parse(dr["CaptainId"].ToString()),
-                                        PortToId = int.Parse(dr["PortToId"].ToString()),
-                                        PortFromId = int.Parse(dr["PortFromId"].ToString()),
-                                        StartDate = dr["StartDate"].ToString(),
-                                        EndDate = dr["EndDate"].ToString()
-                                    });
+                                    (
+                                        int.Parse(dr["Id"].ToString()),
+                                        ValidateInputData.ConvertToNullableInt(dr["ShipId"].ToString()),
+                                        ValidateInputData.ConvertToNullableInt(dr["CaptainId"].ToString()),
+                                        int.Parse(dr["PortFromId"].ToString()),
+                                        int.Parse(dr["PortToId"].ToString()),
+                                        DateTime.Parse(dr["StartDate"].ToString()),
+                                        DateTime.Parse(dr["EndDate"].ToString())
+                                    ));
                                 }
                             }
                         }
@@ -220,7 +220,7 @@ namespace Port.Model.Repository
 
         public Trip SearchById(int id)
         {
-            var item = new Trip();
+            Trip item = null;
             using (var cn = new SqlConnection())
             {
                 cn.ConnectionString = _connStr;
@@ -240,24 +240,18 @@ namespace Port.Model.Repository
                         cn.Open();
                         using (var dr = cmd.ExecuteReader())
                         {
-                            if (dr.HasRows)
-                            {
-                                dr.Read();
-                                item = new Trip
-                                {
-                                    Id = int.Parse(dr["Id"].ToString()),
-                                    ShipId = int.Parse(dr["ShipId"].ToString()),
-                                    CaptainId = int.Parse(dr["CaptainId"].ToString()),
-                                    PortToId = int.Parse(dr["PortToId"].ToString()),
-                                    PortFromId = int.Parse(dr["PortFromId"].ToString()),
-                                    StartDate = dr["StartDate"].ToString(),
-                                    EndDate = dr["EndDate"].ToString()
-                                };
-                            }
-                            else
-                            {
-                                item = null;
-                            }
+                            if (!dr.HasRows) return null;
+                            dr.Read();
+                            item = new Trip
+                                (
+                                int.Parse(dr["Id"].ToString()),
+                                ValidateInputData.ConvertToNullableInt(dr["ShipId"].ToString()),
+                                ValidateInputData.ConvertToNullableInt(dr["CaptainId"].ToString()),
+                                int.Parse(dr["PortFromId"].ToString()),
+                                int.Parse(dr["PortToId"].ToString()),
+                                DateTime.Parse(dr["StartDate"].ToString()),
+                                DateTime.Parse(dr["EndDate"].ToString())
+                                );
                         }
                     }
                 }

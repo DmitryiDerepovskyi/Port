@@ -32,15 +32,15 @@ namespace Port.Model.Repository
                                 while (dr.Read())
                                 {
                                     cargos.Add(new Cargo
-                                    {
-                                        Id = int.Parse(dr["Id"].ToString()),
-                                        Number = int.Parse(dr["Number"].ToString()),
-                                        TypeId = int.Parse(dr["TypeId"].ToString()),
-                                        TripId = int.Parse(dr["TripId"].ToString()),
-                                        WeightCargo = int.Parse(dr["WeightCargo"].ToString()),
-                                        Price = double.Parse(dr["Price"].ToString()),
-                                        InsurancePrice = double.Parse(dr["InsurancePrice"].ToString())
-                                    });
+                                    (
+                                        int.Parse(dr["Id"].ToString()),
+                                        int.Parse(dr["Number"].ToString()),
+                                        int.Parse(dr["TypeId"].ToString()),
+                                        int.Parse(dr["TripId"].ToString()),
+                                        int.Parse(dr["WeightCargo"].ToString()),
+                                        double.Parse(dr["Price"].ToString()),
+                                        double.Parse(dr["InsurancePrice"].ToString())
+                                    ));
                                 }
                             }
                         }
@@ -239,7 +239,7 @@ namespace Port.Model.Repository
 
         public Cargo SearchById(int id)
         {
-            var item = new Cargo();
+            Cargo item = null;
             using (var cn = new SqlConnection())
             {
                 cn.ConnectionString = _connStr;
@@ -259,26 +259,18 @@ namespace Port.Model.Repository
                         cn.Open();
                         using (var dr = cmd.ExecuteReader())
                         {
-                            if (dr.HasRows)
-                            {
-                                while (dr.Read())
-                                {
-                                    item = new Cargo
-                                    {
-                                        Id = int.Parse(dr["Id"].ToString()),
-                                        Number = int.Parse(dr["Number"].ToString()),
-                                        TypeId = int.Parse(dr["TypeId"].ToString()),
-                                        TripId = int.Parse(dr["TripId"].ToString()),
-                                        WeightCargo = int.Parse(dr["WeightCargo"].ToString()),
-                                        Price = double.Parse(dr["Price"].ToString()),
-                                        InsurancePrice = double.Parse(dr["InsurancePrice"].ToString())
-                                    };
-                                }
-                            }
-                            else
-                            {
-                                item = null;
-                            }
+                            if (!dr.HasRows) return null;
+                            dr.Read();
+                            item = new Cargo
+                                    (
+                                    int.Parse(dr["Id"].ToString()),
+                                    int.Parse(dr["Number"].ToString()),
+                                    int.Parse(dr["TypeId"].ToString()),
+                                    int.Parse(dr["TripId"].ToString()),
+                                    int.Parse(dr["WeightCargo"].ToString()),
+                                    double.Parse(dr["Price"].ToString()),
+                                    double.Parse(dr["InsurancePrice"].ToString())
+                                    );
                         }
                     }
                 }

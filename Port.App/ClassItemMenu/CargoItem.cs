@@ -8,6 +8,7 @@ namespace Port.App.ClassItemMenu
     class CargoItem : ItemMenu
     {
         readonly IRepository<Cargo> _repository = new CargoRepository();
+        private const string HeadTable = "Id\tNumber  TypeId  TripId  WeightCargo  Price\tInsurancePrice";
 
         public override void Add()
         {
@@ -27,7 +28,7 @@ namespace Port.App.ClassItemMenu
             var repositoryTrip = new TripRepository();
             if (repositoryTrip.SearchById(newCargo.TripId) == null)
             {
-                Console.WriteLine("Trip with id={0} doesn't exist");
+                Console.WriteLine("Trip with id={0} doesn't exist", newCargo.TripId);
                 return;
             }
             Console.WriteLine("Input weight of cargo");
@@ -72,7 +73,7 @@ namespace Port.App.ClassItemMenu
             var repositoryType = new TypeCargoRepository();
             if (repositoryType.SearchById(cargo.TypeId) == null)
             {
-                Console.WriteLine("Type with id={0} doesn't exist");
+                Console.WriteLine("Type with id={0} doesn't exist", cargo.TripId);
                 return;
             }
             Console.WriteLine("Input id of trip");
@@ -80,7 +81,7 @@ namespace Port.App.ClassItemMenu
             var repositoryTrip = new TripRepository();
             if (repositoryTrip.SearchById(cargo.TripId) == null)
             {
-                Console.WriteLine("Trip with id={0} doesn't exist");
+                Console.WriteLine("Trip with id={0} doesn't exist", cargo.TripId);
                 return;
             }
             Console.WriteLine("Input weight of cargo");
@@ -104,14 +105,14 @@ namespace Port.App.ClassItemMenu
             }
             else
             {
-                Console.WriteLine("Id\tNumber   TypeId   TripId   WeightCargo   Price   InsurancePrice");
+                Console.WriteLine(HeadTable);
                 Console.WriteLine(cargo.ToString());
             }
         }
 
         public override void PrintAll()
         {
-            Console.WriteLine("Id\tNumber   TypeId   TripId   WeightCargo   Price InsurancePrice");
+            Console.WriteLine(HeadTable);
             foreach (var item in _repository.GetItemsList())
             {
                 Console.WriteLine(item.ToString());

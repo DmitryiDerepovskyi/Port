@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Port.App.ClassItemMenu
 {
@@ -20,7 +16,6 @@ namespace Port.App.ClassItemMenu
                 {"Print all",this.PrintAll},
             };
         }
-
         public Dictionary<string, Action> OperationItemMenu;
         abstract public void Add();
         abstract public void Remove();

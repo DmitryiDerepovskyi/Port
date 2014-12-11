@@ -8,6 +8,8 @@ namespace Port.App.ClassItemMenu
     class CityItem : ItemMenu
     {
         readonly IRepository<City> _repository = new CityRepository();
+        private const string HeadTable = "Id\tFirstName  LastName  HasShip";
+
         public override void Add()
         {
             var newCity = new City();

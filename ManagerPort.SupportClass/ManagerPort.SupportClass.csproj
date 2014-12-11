@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{80095C21-64A2-4579-941D-C8002448EE78}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{2D62895D-1C42-4228-BF3F-DC04AB8904C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Port.App</RootNamespace>
-    <AssemblyName>Port.App</AssemblyName>
+    <RootNamespace>ManagerPort.SupportClass</RootNamespace>
+    <AssemblyName>ManagerPort.SupportClass</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,44 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassItemMenu\CaptainItem.cs" />
-    <Compile Include="ClassItemMenu\CargoItem.cs" />
-    <Compile Include="ClassItemMenu\CityItem.cs" />
-    <Compile Include="ClassItemMenu\FactoryItemsMenu.cs" />
-    <Compile Include="ClassItemMenu\ItemMenu.cs" />
-    <Compile Include="ClassItemMenu\EnumItemsMenu.cs" />
-    <Compile Include="ClassItemMenu\PortItem.cs" />
-    <Compile Include="ClassItemMenu\ShipItem.cs" />
-    <Compile Include="ClassItemMenu\TripItem.cs" />
-    <Compile Include="ClassItemMenu\TypeCargoItem.cs" />
-    <Compile Include="ValidateInputData.cs" />
-    <Compile Include="Cursor.cs" />
-    <Compile Include="InteractiveConsole.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Menu\CargoType.txt" />
-    <Content Include="Menu\City.txt" />
-    <Content Include="Menu\Cargo.txt" />
-    <Content Include="Menu\Port.txt" />
-    <Content Include="Menu\Trip.txt" />
-    <Content Include="Menu\Ship.txt" />
-    <Content Include="Menu\Captain.txt" />
-    <Content Include="Menu\MainMenu.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ManagerPort.SupportClass\ManagerPort.SupportClass.csproj">
-      <Project>{2d62895d-1c42-4228-bf3f-dc04ab8904c5}</Project>
-      <Name>ManagerPort.SupportClass</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Port.Model\ManagerPort.Model.csproj">
-      <Project>{0d37c487-5f62-4645-80e0-f1691afdc13e}</Project>
-      <Name>ManagerPort.Model</Name>
-    </ProjectReference>
+    <Compile Include="ValidateInputData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
