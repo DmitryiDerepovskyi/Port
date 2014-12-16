@@ -1,9 +1,10 @@
 ﻿using System;
-using Port.Model;
-using Port.Model.ClassModel;
-using Port.Model.Repository;
+using ManagerPort.Model.ClassModel;
+using ManagerPort.RepositoryDb;
+using ManagerPort.RepositoryDb.Repository;
+using ManagerPort.SupportClass;
 
-namespace Port.App.ClassItemMenu
+namespace ManagerPort.App.ClassItemMenu
 {
     public class TripItem : ItemMenu
     {
@@ -11,52 +12,16 @@ namespace Port.App.ClassItemMenu
         private const string HeadTable = "Id\tShipId   CaptainId   PortFromId   PortToId   StartDate   EndDate";
         public override void Add()
         {
-            var newTrip = new Trip();
-            Console.WriteLine("Input id of ship");
-            var shipId = ValidateInputData.InputId();
-            var repositoryShip = new ShipRepository();
-            var ship = repositoryShip.SearchById(shipId);
-            if (ship == null)
+            try
             {
-                Console.WriteLine("Ship with id={0} doesn't exist", shipId);
-                return;
+                var newTrip = new Trip();
+                InputDataTrip(ref newTrip);
+                _repository.Create(newTrip);
             }
-            if (ship.CaptainId == null)
+            catch (Exception e)
             {
-                Console.WriteLine("Ship with id={0} hasn't a captain", shipId);
-                return;
+                Console.WriteLine(e.Message);
             }
-            newTrip.ShipId = shipId;
-            Console.WriteLine("Input id of port from start trip");
-            newTrip.PortFromId = ValidateInputData.InputId();
-            var repositoryPort = new PortRepository();
-            if (repositoryPort.SearchById(newTrip.PortFromId) == null)
-            {
-                Console.WriteLine("Port with id={0} doesn't exist",newTrip.PortFromId);
-                return;
-            }
-            Console.WriteLine("Input id of port to end trip");
-            newTrip.PortToId = ValidateInputData.InputId();
-            if (repositoryPort.SearchById(newTrip.PortToId) == null)
-            {
-                Console.WriteLine("Port with id={0} doesn't exist", newTrip.PortToId);
-                return;
-            }
-            if (newTrip.PortFromId == newTrip.PortToId)
-            {
-                Console.WriteLine("Port from can't equal port to");
-                return;
-            }
-            Console.WriteLine("Input date of start trip (yyyy/mm/dd)");
-            newTrip.StartDate = ValidateInputData.InputDate();
-            Console.WriteLine("Input date of end trip (yyyy/mm/dd)");
-            newTrip.EndDate = ValidateInputData.InputDate();
-            if (newTrip.EndDate < newTrip.StartDate)
-            {
-                Console.WriteLine("End date can't be earlier than the start date");
-                return;
-            }
-            _repository.Create(newTrip);
         }
 
         public override void Remove()
@@ -85,62 +50,23 @@ namespace Port.App.ClassItemMenu
                 Console.WriteLine("Trip with id = {0} doesn't exist", id);
                 return;
             }
-            else
-            {
-                Console.WriteLine(HeadTable);
-                Console.WriteLine(trip.ToString());
-            }
+            Console.WriteLine(HeadTable);
+            Console.WriteLine(trip.ToString());
             Console.WriteLine("Update this record?(y)");
             var choose = Console.ReadKey(true).KeyChar;
             if (Char.ToLower(choose) == 'y')
             {
-                Console.WriteLine("Input id of ship");
-                var shipId = ValidateInputData.InputId();
-                var repositoryShip = new ShipRepository();
-                var ship = repositoryShip.SearchById(shipId);
-                if (ship == null)
+                try
                 {
-                    Console.WriteLine("Ship with id={0} doesn't exist", shipId);
-                    return;
+                    var newTrip = new Trip();
+                    InputDataTrip(ref newTrip);
+                    _repository.Update(trip);
                 }
-                if (ship.CaptainId == null)
+                catch (Exception e)
                 {
-                    Console.WriteLine("Ship with id={0} hasn't a captain", shipId);
-                    return;
+                    Console.WriteLine(e.Message);
                 }
-                trip.ShipId = shipId;
-                Console.WriteLine("Input id of port from start trip");
-                trip.PortFromId = ValidateInputData.InputId();
-                var repositoryPort = new PortRepository();
-                if (repositoryPort.SearchById(trip.PortFromId) == null)
-                {
-                    Console.WriteLine("Port with id={0} doesn't exist");
-                    return;
-                }
-                Console.WriteLine("Input id of port to end trip");
-                trip.PortToId = ValidateInputData.InputId();
-                if (repositoryPort.SearchById(trip.PortToId) == null)
-                {
-                    Console.WriteLine("Port with id={0} doesn't exist");
-                    return;
-                }
-                if (trip.PortFromId == trip.PortToId)
-                {
-                    Console.WriteLine("Port from can't equal port to");
-                    return;
-                }
-                Console.WriteLine("Input date of start trip (yyyy/mm/dd)");
-                trip.StartDate = ValidateInputData.InputDate();
-                Console.WriteLine("Input date of end trip (yyyy/mm/dd)");
-                trip.EndDate = ValidateInputData.InputDate();
-                if (trip.EndDate  < trip.StartDate)
-                {
-                    Console.WriteLine("End date can't be earlier than the start date");
-                    return;
-                }
-                _repository.Update(trip);
             }
-
         }
 
         public override void SearchById()
@@ -166,6 +92,37 @@ namespace Port.App.ClassItemMenu
             {
                 Console.WriteLine(item.ToString());
             }
+        }
+
+        private void InputDataTrip(ref Trip trip)
+        {
+            Console.WriteLine("Input id of ship");
+            var shipId = ValidateInputData.InputId();
+            var repositoryShip = new ShipRepository();
+            var ship = repositoryShip.SearchById(shipId);
+            if (ship == null)
+                throw new NullReferenceException(String.Format("Ship with id={0} doesn't exist", shipId));
+            if (ship.CaptainId == null)
+                throw new NullReferenceException(String.Format("Ship with id={0} hasn't captain", shipId));
+            trip.CaptainId = (int)ship.CaptainId;
+            trip.ShipId = shipId;
+            Console.WriteLine("Input id of port from start trip");
+            trip.PortFromId = ValidateInputData.InputId();
+            var repositoryPort = new PortRepository();
+            if (repositoryPort.SearchById(trip.PortFromId) == null)
+                throw new NullReferenceException(String.Format("Port with id={0} doesn't exist", trip.PortFromId));
+            Console.WriteLine("Input id of port to end trip");
+            trip.PortToId = ValidateInputData.InputId();
+            if (repositoryPort.SearchById(trip.PortToId) == null)
+                throw new NullReferenceException(String.Format("Port with id={0} doesn't exist", trip.PortToId));
+            if (trip.PortFromId == trip.PortToId)
+                throw new ArgumentException(String.Format("Port from can't equal port to"));
+            Console.WriteLine("Input date of start trip (yyyy/mm/dd)");
+            trip.StartDate = ValidateInputData.InputDate();
+            Console.WriteLine("Input date of end trip (yyyy/mm/dd)");
+            trip.EndDate = ValidateInputData.InputDate();
+            if (trip.EndDate < trip.StartDate)
+                throw new ArgumentException(String.Format("End date can't be earlier than the start date"));
         }
     }
 }

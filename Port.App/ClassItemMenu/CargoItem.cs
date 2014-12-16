@@ -1,9 +1,10 @@
 ﻿using System;
-using Port.Model;
-using Port.Model.ClassModel;
-using Port.Model.Repository;
+using ManagerPort.Model.ClassModel;
+using ManagerPort.RepositoryDb;
+using ManagerPort.RepositoryDb.Repository;
+using ManagerPort.SupportClass;
 
-namespace Port.App.ClassItemMenu
+namespace ManagerPort.App.ClassItemMenu
 {
     class CargoItem : ItemMenu
     {
@@ -13,47 +14,29 @@ namespace Port.App.ClassItemMenu
         public override void Add()
         {
             var newCargo = new Cargo();
-            Console.WriteLine("Input number of cargo");
-            newCargo.Number = ValidateInputData.InputNumber();
-            Console.WriteLine("Input id of type cargo");
-            newCargo.TypeId = ValidateInputData.InputId();
-            var repositoryType = new TypeCargoRepository();
-            if (repositoryType.SearchById(newCargo.TypeId) == null)
+            try
             {
-                Console.WriteLine("Type with id={0} doesn't exist");
-                return;
+                InputDataCargo(ref newCargo);
+                _repository.Create(newCargo);
             }
-            Console.WriteLine("Input id of trip");
-            newCargo.TripId = ValidateInputData.InputId();
-            var repositoryTrip = new TripRepository();
-            if (repositoryTrip.SearchById(newCargo.TripId) == null)
+            catch (NullReferenceException e)
             {
-                Console.WriteLine("Trip with id={0} doesn't exist", newCargo.TripId);
-                return;
+                Console.WriteLine(e.Message);
             }
-            Console.WriteLine("Input weight of cargo");
-            newCargo.WeightCargo = ValidateInputData.InputNumber();
-            Console.WriteLine("Input price");
-            newCargo.Price = ValidateInputData.InputNumber();
-            Console.WriteLine("Input insurance price");
-            newCargo.InsurancePrice = ValidateInputData.InputNumber();
-            _repository.Create(newCargo);
         }
 
         public override void Remove()
         {
-           Console.WriteLine("Input id of the cargo");
+            Console.WriteLine("Input id of the cargo");
             var id = ValidateInputData.InputId();
             var cargo = _repository.SearchById(id);
             if (cargo == null)
             {
                 Console.WriteLine("Cargo with id = {0} doesn't exist", id);
+                return;
             }
-            else
-            {
-                _repository.Remove(id);
-                Console.WriteLine("Cargo have been removed");
-            }
+            _repository.Remove(id);
+            Console.WriteLine("Cargo have been removed");
         }
 
         public override void Update()
@@ -66,31 +49,15 @@ namespace Port.App.ClassItemMenu
                 Console.WriteLine("Cargo with id = {0} doesn't exist", id);
                 return;
             }
-            Console.WriteLine("Input number of cargo");
-            cargo.Number = ValidateInputData.InputNumber();
-            Console.WriteLine("Input id of type cargo");
-            cargo.TypeId = ValidateInputData.InputId();
-            var repositoryType = new TypeCargoRepository();
-            if (repositoryType.SearchById(cargo.TypeId) == null)
+            try
             {
-                Console.WriteLine("Type with id={0} doesn't exist", cargo.TripId);
-                return;
+                InputDataCargo(ref cargo);
+                _repository.Update(cargo);
             }
-            Console.WriteLine("Input id of trip");
-            cargo.TripId = ValidateInputData.InputId();
-            var repositoryTrip = new TripRepository();
-            if (repositoryTrip.SearchById(cargo.TripId) == null)
+            catch (NullReferenceException e)
             {
-                Console.WriteLine("Trip with id={0} doesn't exist", cargo.TripId);
-                return;
+                Console.WriteLine(e.Message);
             }
-            Console.WriteLine("Input weight of cargo");
-            cargo.WeightCargo = ValidateInputData.InputNumber();
-            Console.WriteLine("Input price");
-            cargo.Price = ValidateInputData.InputNumber();
-            Console.WriteLine("Input insurance price");
-            cargo.InsurancePrice = ValidateInputData.InputNumber();
-            _repository.Update(cargo);
         }
 
 
@@ -102,12 +69,10 @@ namespace Port.App.ClassItemMenu
             if (cargo == null)
             {
                 Console.WriteLine("Cargo with id = {0} doesn't exist", id);
+                return;
             }
-            else
-            {
-                Console.WriteLine(HeadTable);
-                Console.WriteLine(cargo.ToString());
-            }
+            Console.WriteLine(HeadTable);
+            Console.WriteLine(cargo.ToString());
         }
 
         public override void PrintAll()
@@ -117,6 +82,28 @@ namespace Port.App.ClassItemMenu
             {
                 Console.WriteLine(item.ToString());
             }
+        }
+
+        private void InputDataCargo(ref Cargo cargo)
+        {
+            Console.WriteLine("Input number of cargo");
+            cargo.Number = ValidateInputData.InputNumber();
+            Console.WriteLine("Input id of type cargo");
+            cargo.TypeId = ValidateInputData.InputId();
+            var repositoryType = new TypeCargoRepository();
+            if (repositoryType.SearchById(cargo.TypeId) == null)
+                throw new NullReferenceException(String.Format("Type with id={0} doesn't exist", cargo.TypeId));
+            Console.WriteLine("Input id of trip");
+            cargo.TripId = ValidateInputData.InputId();
+            var repositoryTrip = new TripRepository();
+            if (repositoryTrip.SearchById(cargo.TripId) == null)
+                throw new NullReferenceException(String.Format("Trip with id={0} doesn't exist", cargo.TypeId));
+            Console.WriteLine("Input weight of cargo");
+            cargo.WeightCargo = ValidateInputData.InputNumber();
+            Console.WriteLine("Input price");
+            cargo.Price = ValidateInputData.InputNumber();
+            Console.WriteLine("Input insurance price");
+            cargo.InsurancePrice = ValidateInputData.InputNumber();
         }
     }
 }

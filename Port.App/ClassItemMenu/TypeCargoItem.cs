@@ -1,9 +1,10 @@
 ﻿using System;
-using Port.Model;
-using Port.Model.ClassModel;
-using Port.Model.Repository;
+using ManagerPort.Model.ClassModel;
+using ManagerPort.RepositoryDb;
+using ManagerPort.RepositoryDb.Repository;
+using ManagerPort.SupportClass;
 
-namespace Port.App.ClassItemMenu
+namespace ManagerPort.App.ClassItemMenu
 {
     class TypeCargoItem : ItemMenu
     {
@@ -13,8 +14,7 @@ namespace Port.App.ClassItemMenu
         public override void Add()
         {
             var newTypeCargo = new TypeCargo();
-            Console.WriteLine("Input type cargo");
-            newTypeCargo.TypeName = ValidateInputData.InputName();
+            InputDataTypesCargo(ref newTypeCargo);
             _repository.Create(newTypeCargo);
         }
 
@@ -26,13 +26,12 @@ namespace Port.App.ClassItemMenu
             if (type == null)
             {
                 Console.WriteLine("Type with id = {0} doesn't exist", id);
+                return;
             }
-            else
-            {
-                _repository.Remove(id);
-                Console.WriteLine("Type have been removed");
-            }
+            _repository.Remove(id);
+            Console.WriteLine("Type have been removed");
         }
+
 
         public override void Update()
         {
@@ -44,16 +43,12 @@ namespace Port.App.ClassItemMenu
                 Console.WriteLine("Type with id = {0} doesn't exist", id);
                 return;
             }
-            else
-            {
-                Console.WriteLine(HeadTable);
-                Console.WriteLine(typeCargo.ToString());
-            }
+            Console.WriteLine(HeadTable);
+            Console.WriteLine(typeCargo.ToString());
             Console.WriteLine("Update this record?(y)");
             var choose = Console.ReadKey(true).KeyChar;
             if (Char.ToLower(choose) != 'y') return;
-            Console.WriteLine("Input new name type");
-            typeCargo.TypeName = ValidateInputData.InputName();
+            InputDataTypesCargo(ref typeCargo);
             _repository.Update(typeCargo);
         }
 
@@ -65,12 +60,10 @@ namespace Port.App.ClassItemMenu
             if (typeCargo == null)
             {
                 Console.WriteLine("Type with id = {0} doesn't exist", id);
+                return;
             }
-            else
-            {
-                Console.WriteLine(HeadTable);
-                Console.WriteLine(typeCargo.ToString());
-            }
+            Console.WriteLine(HeadTable);
+            Console.WriteLine(typeCargo.ToString());
         }
 
         public override void PrintAll()
@@ -80,6 +73,12 @@ namespace Port.App.ClassItemMenu
             {
                 Console.WriteLine(item.ToString());
             }
+        }
+
+        private void InputDataTypesCargo(ref TypeCargo typeCargo)
+        {
+            Console.WriteLine("Input type cargo");
+            typeCargo.TypeName = ValidateInputData.InputName();
         }
     }
 }

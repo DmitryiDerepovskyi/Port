@@ -1,22 +1,20 @@
-﻿using Port.Model;
-using Port.Model.ClassModel;
-using Port.Model.Repository;
-using System;
+﻿using System;
+using ManagerPort.Model.ClassModel;
+using ManagerPort.RepositoryDb;
+using ManagerPort.RepositoryDb.Repository;
+using ManagerPort.SupportClass;
 
-namespace Port.App.ClassItemMenu
+namespace ManagerPort.App.ClassItemMenu
 {
     class CaptainItem : ItemMenu
     {
         readonly IRepository<Captain> _repository = new CaptainRepository();
-        private const string HeadTable = "Id\tFirstName  LastName  HasShip";
+        private const string HeadTable = "Id\tFirstName  LastName  ShipId";
 
         public override void Add()
         {
             var newCaptain = new Captain();
-            Console.WriteLine("Input firstname a captain");
-            newCaptain.FirstName = ValidateInputData.InputName();
-            Console.WriteLine("Input lastname a captain");
-            newCaptain.LastName = ValidateInputData.InputName();
+           InputDataCaptain(ref newCaptain);
             _repository.Create(newCaptain);
         }
 
@@ -47,23 +45,15 @@ namespace Port.App.ClassItemMenu
                 Console.WriteLine("Captain with id = {0} doesn't exist", id);
                 return;
             }
-            else
-            {
-                Console.WriteLine(HeadTable);
-                Console.WriteLine(captain.ToString());
-            }
+            Console.WriteLine(HeadTable);
+            Console.WriteLine(captain.ToString());
             Console.WriteLine("Update this record?(y)");
             var choose = Console.ReadKey(true).KeyChar;
             if (Char.ToLower(choose) == 'y')
             {
-                Console.WriteLine("Input new firstname captain");
-                captain.FirstName = ValidateInputData.InputName();
-                Console.WriteLine("Input new lastname captain");
-                captain.LastName = ValidateInputData.InputName();
-                ((CaptainRepository) _repository).SetNullShipId();
+                InputDataCaptain(ref captain);
                 _repository.Update(captain);
             }
-
         }
 
         public override void SearchById()
@@ -89,6 +79,14 @@ namespace Port.App.ClassItemMenu
             {
                 Console.WriteLine(item.ToString());
             }
+        }
+
+        private void InputDataCaptain(ref Captain captain)
+        {
+            Console.WriteLine("Input firstname a captain");
+            captain.FirstName = ValidateInputData.InputName();
+            Console.WriteLine("Input lastname a captain");
+            captain.LastName = ValidateInputData.InputName();
         }
     }
 }

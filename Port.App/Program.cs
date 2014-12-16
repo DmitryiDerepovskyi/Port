@@ -1,4 +1,4 @@
-﻿namespace Port.App
+﻿namespace ManagerPort.App
 {
     class Program
     {

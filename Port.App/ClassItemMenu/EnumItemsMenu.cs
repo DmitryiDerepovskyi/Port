@@ -1,4 +1,4 @@
-﻿namespace Port.App.ClassItemMenu
+﻿namespace ManagerPort.App.ClassItemMenu
 {
     public enum EnumItemsMenu
     {

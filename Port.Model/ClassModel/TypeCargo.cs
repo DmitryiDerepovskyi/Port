@@ -1,18 +1,19 @@
-﻿namespace Port.Model.ClassModel
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+
+namespace ManagerPort.Model.ClassModel
 {
     public class TypeCargo
     {
-        
-        public TypeCargo(){}
-
-        public TypeCargo(int id, string typeName)
+        public TypeCargo()
         {
-            Id = id;
-            TypeName = typeName;
+            Cargos = new Collection<Cargo>();
         }
-
         public int Id { get; set; }
         public string TypeName { get; set; }
+
+        public virtual ICollection<Cargo> Cargos { get; set; }
 
         public override string ToString()
         {

@@ -1,29 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-namespace Port.Model.ClassModel
+namespace ManagerPort.Model.ClassModel
 {
     public class Ship
     {
-        public Ship(){}
-
-        public Ship(int id, int? captainId, int number,int capacity,DateTime dateCreate, int maxDistance,int teamCount)
+        public Ship()
         {
-            Id = id;
-            CaptainId = captainId;
-            Number = number;
-            Capacity = capacity;
-            DateCreate = dateCreate;
-            MaxDistance = maxDistance;
-            TeamCount = teamCount;
+            Trips = new Collection<Trip>();
         }
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public int? CaptainId { get; set; }
         public int Number { get; set; }
         public int Capacity { get; set; }
         public DateTime DateCreate { get; set; }
         public int MaxDistance { get; set; }
         public int TeamCount { get; set; }
+
+        public virtual Captain Captain { get; set; }
+
+        public virtual ICollection<Trip> Trips { get; set; }
 
         public override string ToString()
         {

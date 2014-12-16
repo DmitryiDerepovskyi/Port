@@ -1,7 +1,7 @@
-C:\Users\Dmitry\Desktop\projects\Port\Port.Model\bin\Debug\Port.Model.dll
-C:\Users\Dmitry\Desktop\projects\Port\Port.Model\bin\Debug\Port.Model.pdb
-C:\Users\Dmitry\Desktop\projects\Port\Port.Model\obj\Debug\Port.Model.dll
-C:\Users\Dmitry\Desktop\projects\Port\Port.Model\obj\Debug\Port.Model.pdb
 C:\Users\Dmitry\Desktop\projects\Port\Port.Model\obj\Debug\ManagerPort.Model.csprojResolveAssemblyReference.cache
 C:\Users\Dmitry\Desktop\projects\Port\Port.Model\bin\Debug\ManagerPort.SupportClass.dll
 C:\Users\Dmitry\Desktop\projects\Port\Port.Model\bin\Debug\ManagerPort.SupportClass.pdb
+C:\Users\Dmitry\Desktop\projects\Port\Port.Model\bin\Debug\ManagerPort.Model.dll
+C:\Users\Dmitry\Desktop\projects\Port\Port.Model\bin\Debug\ManagerPort.Model.pdb
+C:\Users\Dmitry\Desktop\projects\Port\Port.Model\obj\Debug\ManagerPort.Model.dll
+C:\Users\Dmitry\Desktop\projects\Port\Port.Model\obj\Debug\ManagerPort.Model.pdb

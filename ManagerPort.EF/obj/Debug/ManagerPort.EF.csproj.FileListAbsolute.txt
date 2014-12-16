@@ -1,0 +1,12 @@
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\obj\Debug\ManagerPort.EF.csprojResolveAssemblyReference.cache
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\bin\Debug\ManagerPort.EF.dll.config
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\bin\Debug\ManagerPort.EF.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\bin\Debug\ManagerPort.EF.pdb
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\bin\Debug\EntityFramework.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\bin\Debug\ManagerPort.Model.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\bin\Debug\ManagerPort.Model.pdb
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\bin\Debug\EntityFramework.xml
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\obj\Debug\ManagerPort.EF.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.EF\obj\Debug\ManagerPort.EF.pdb

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerPort.App", "Port.App
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerPort.SupportClass", "ManagerPort.SupportClass\ManagerPort.SupportClass.csproj", "{2D62895D-1C42-4228-BF3F-DC04AB8904C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerPort.EF", "ManagerPort.EF\ManagerPort.EF.csproj", "{71724CB1-1232-410E-A7C8-FAA6774FC485}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerPort.RepositoryDb", "ManagerPort.RepositoryDb\ManagerPort.RepositoryDb.csproj", "{B56CC9A5-393D-4D74-B741-B0DE0CC4DACB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{2D62895D-1C42-4228-BF3F-DC04AB8904C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D62895D-1C42-4228-BF3F-DC04AB8904C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D62895D-1C42-4228-BF3F-DC04AB8904C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71724CB1-1232-410E-A7C8-FAA6774FC485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71724CB1-1232-410E-A7C8-FAA6774FC485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71724CB1-1232-410E-A7C8-FAA6774FC485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71724CB1-1232-410E-A7C8-FAA6774FC485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B56CC9A5-393D-4D74-B741-B0DE0CC4DACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B56CC9A5-393D-4D74-B741-B0DE0CC4DACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B56CC9A5-393D-4D74-B741-B0DE0CC4DACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B56CC9A5-393D-4D74-B741-B0DE0CC4DACB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

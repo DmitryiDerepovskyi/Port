@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-namespace Port.Model.ClassModel
+namespace ManagerPort.Model.ClassModel
 {
     public class Port
     {
-        public Port(){}
-
-        public Port(int id, string name, int cityId)
+        public Port()
         {
-            Id = id;
-            Name = name;
-            CityId = cityId;
+            Trips = new Collection<Trip>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public int CityId { get; set; }
+
+        public virtual City City { get; set; }
+        public virtual ICollection<Trip> Trips { get; set; }
 
         public override string ToString()
         {

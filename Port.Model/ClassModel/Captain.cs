@@ -1,27 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-namespace Port.Model.ClassModel
+namespace ManagerPort.Model.ClassModel
 {
     public class Captain
     {
-        public Captain(){}
-
-        public Captain(int id, string firstName, string lastName, bool hasShip)
+        public Captain()
         {
-            Id = id;
-            FirstName = firstName;
-            LastName = lastName;
-            HasShip = hasShip;
+            Trips = new Collection<Trip>();
+            Ships = new Collection<Ship>();
         }
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool HasShip { get; private set; }
+        public int? ShipId { get; set; }
+
+        public virtual ICollection<Ship> Ships { get; set; }
+
+        public virtual ICollection<Trip> Trips { get; set; }
+
 
         public override string ToString()
         {
-            return String.Format("{0:000000}  {1, 9}  {2,8}  {3,7}",Id,FirstName,LastName,HasShip);
+            return String.Format("{0:000000}  {1, 9}  {2,8}  {3,7}",Id,FirstName,LastName,ShipId);
         }
     }
 }

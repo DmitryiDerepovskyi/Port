@@ -1,0 +1,14 @@
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\ManagerPort.RepositoryDb.dll.config
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\ManagerPort.RepositoryDb.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\ManagerPort.RepositoryDb.pdb
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\EntityFramework.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\ManagerPort.EF.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\ManagerPort.Model.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\ManagerPort.EF.pdb
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\ManagerPort.Model.pdb
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\EntityFramework.xml
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\obj\Debug\ManagerPort.RepositoryDb.csprojResolveAssemblyReference.cache
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\obj\Debug\ManagerPort.RepositoryDb.dll
+C:\Users\Dmitry\Desktop\projects\Port\ManagerPort.RepositoryDb\obj\Debug\ManagerPort.RepositoryDb.pdb

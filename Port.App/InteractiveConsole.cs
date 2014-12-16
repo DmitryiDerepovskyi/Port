@@ -4,9 +4,9 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Library.App.Menu;
-using Port.App.ClassItemMenu;
+using ManagerPort.App.ClassItemMenu;
 
-namespace Port.App
+namespace ManagerPort.App
 {
     class InteractiveConsole
     {
@@ -111,11 +111,12 @@ namespace Port.App
         // Выполнение операции
         private void PerformOperation()
         {
-                Console.CursorVisible = true;
-                _cursor.visible = false;
-                _itemMenu.OperationItemMenu[_operation]();
-                Console.CursorVisible = false;
+            Console.CursorVisible = true;
+            _cursor.visible = false;
+            _itemMenu.OperationItemMenu[_operation]();
+            Console.CursorVisible = false;
         }
+
         // Вывод меню
         string PrintMainMenu()
         {

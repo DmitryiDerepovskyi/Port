@@ -7,8 +7,8 @@
     <ProjectGuid>{0D37C487-5F62-4645-80E0-F1691AFDC13E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Port.Model</RootNamespace>
-    <AssemblyName>Port.Model</AssemblyName>
+    <RootNamespace>ManagerPort.Model</RootNamespace>
+    <AssemblyName>ManagerPort.Model</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,14 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repository\CargoRepository.cs" />
-    <Compile Include="Repository\PortRepository.cs" />
-    <Compile Include="Repository\ShipRepository.cs" />
-    <Compile Include="Repository\TripRepository.cs" />
-    <Compile Include="Repository\TypeCargoRepository.cs" />
-    <Compile Include="Repository\CityRepository.cs" />
-    <Compile Include="Repository\CaptainRepository.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="ClassModel\Captain.cs" />
     <Compile Include="ClassModel\Cargo.cs" />
     <Compile Include="ClassModel\City.cs" />

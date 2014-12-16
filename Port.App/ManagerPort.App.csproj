@@ -7,8 +7,8 @@
     <ProjectGuid>{80095C21-64A2-4579-941D-C8002448EE78}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Port.App</RootNamespace>
-    <AssemblyName>Port.App</AssemblyName>
+    <RootNamespace>ManagerPort.App</RootNamespace>
+    <AssemblyName>ManagerPort.App</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,7 +59,6 @@
     <Compile Include="ClassItemMenu\ShipItem.cs" />
     <Compile Include="ClassItemMenu\TripItem.cs" />
     <Compile Include="ClassItemMenu\TypeCargoItem.cs" />
-    <Compile Include="ValidateInputData.cs" />
     <Compile Include="Cursor.cs" />
     <Compile Include="InteractiveConsole.cs" />
     <Compile Include="Program.cs" />
@@ -59,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Menu\CargoType.txt" />
@@ -71,6 +79,10 @@
     <Content Include="Menu\MainMenu.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ManagerPort.RepositoryDb\ManagerPort.RepositoryDb.csproj">
+      <Project>{b56cc9a5-393d-4d74-b741-b0de0cc4dacb}</Project>
+      <Name>ManagerPort.RepositoryDb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ManagerPort.SupportClass\ManagerPort.SupportClass.csproj">
       <Project>{2d62895d-1c42-4228-bf3f-dc04ab8904c5}</Project>
       <Name>ManagerPort.SupportClass</Name>

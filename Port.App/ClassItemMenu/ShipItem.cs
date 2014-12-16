@@ -1,9 +1,10 @@
 ﻿using System;
-using Port.Model;
-using Port.Model.ClassModel;
-using Port.Model.Repository;
+using ManagerPort.Model.ClassModel;
+using ManagerPort.RepositoryDb;
+using ManagerPort.RepositoryDb.Repository;
+using ManagerPort.SupportClass;
 
-namespace Port.App.ClassItemMenu
+namespace ManagerPort.App.ClassItemMenu
 {
     class ShipItem : ItemMenu
     {
@@ -13,34 +14,16 @@ namespace Port.App.ClassItemMenu
         public override void Add()
         {
             var newShip = new Ship();
-            Console.WriteLine("Input id of captain");
-            var captainId = ValidateInputData.InputId();
-            var repositoryCaptain = new CaptainRepository();
-            var captain = repositoryCaptain.SearchById(captainId);
-            if ( captain == null)
+            try
             {
-                Console.WriteLine("Captain with id={0} doesn't exist", captainId);
-                return;
+                InputDataShip(ref newShip);
+                _repository.Create(newShip);
             }
-            if(captain.HasShip)
+            catch(NullReferenceException e)
             {
-                Console.WriteLine("Captain with id={0} already has ship", captainId);
-                return;
+                Console.WriteLine(e.Message);
             }
-            newShip.CaptainId = captainId;
-            Console.WriteLine("Input number of Ship");
-            newShip.Number = ValidateInputData.InputNumber();
-            Console.WriteLine("Input capacity of Ship");
-            newShip.Capacity = ValidateInputData.InputNumber();
-            Console.WriteLine("Input date of create (yyyy/mm/dd) the Ship");
-            newShip.DateCreate = ValidateInputData.InputDate();
-            Console.WriteLine("Input max distance the Ship");
-            newShip.MaxDistance = ValidateInputData.InputNumber();
-            Console.WriteLine("Input team count the Ship");
-            newShip.TeamCount = ValidateInputData.InputNumber();
-            _repository.Create(newShip);
         }
-
 
         public override void Remove()
         {
@@ -50,12 +33,10 @@ namespace Port.App.ClassItemMenu
             if (ship == null)
             {
                 Console.WriteLine("Ship with id = {0} doesn't exist", id);
+                return;
             }
-            else
-            {
-                _repository.Remove(id);
-                Console.WriteLine("Ship have been removed");
-            }
+            _repository.Remove(id);
+            Console.WriteLine("Ship have been removed");
         }
 
         public override void Update()
@@ -68,43 +49,21 @@ namespace Port.App.ClassItemMenu
                 Console.WriteLine("Ship with id = {0} doesn't exist", id);
                 return;
             }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine(ship.ToString());
-            }
+            Console.WriteLine(ship.ToString());
             Console.WriteLine("Update this record?(y)");
             var choose = Console.ReadKey(true).KeyChar;
             if (Char.ToLower(choose) == 'y')
             {
-                Console.WriteLine("Input id of captain");
-                var captainId = ValidateInputData.InputId();
-                var repositoryCaptain = new CaptainRepository();
-                var captain = repositoryCaptain.SearchById(captainId);
-                if (captain == null)
+                try
                 {
-                    Console.WriteLine("Captain with id={0} doesn't exist", captainId);
-                    return;
+                    InputDataShip(ref ship);
+                    _repository.Update(ship);
                 }
-                if (captain.HasShip)
+                catch (NullReferenceException e)
                 {
-                    Console.WriteLine("Captain with id={0} already has ship", captainId);
-                    return;
+                    Console.WriteLine(e.Message);
                 }
-                ship.CaptainId = captainId;
-                Console.WriteLine("Input number of Ship");
-                ship.Number = ValidateInputData.InputNumber();
-                Console.WriteLine("Input capacity of Ship");
-                ship.Capacity = ValidateInputData.InputNumber();
-                Console.WriteLine("Input date of create (yyyy/mm/dd) the Ship");
-                ship.DateCreate = ValidateInputData.InputDate();
-                Console.WriteLine("Input max distance the Ship");
-                ship.MaxDistance = ValidateInputData.InputNumber();
-                Console.WriteLine("Input team count the Ship");
-                ship.TeamCount = ValidateInputData.InputNumber();
-                _repository.Update(ship);
             }
-
         }
 
         public override void SearchById()
@@ -115,12 +74,10 @@ namespace Port.App.ClassItemMenu
             if (ship == null)
             {
                 Console.WriteLine("Ship with id = {0} doesn't exist", id);
+                return;
             }
-            else
-            {
-                Console.WriteLine(HeadTable);
-                Console.WriteLine(ship.ToString());
-            }
+            Console.WriteLine(HeadTable);
+            Console.WriteLine(ship.ToString());
         }
 
         public override void PrintAll()
@@ -130,6 +87,27 @@ namespace Port.App.ClassItemMenu
             {
                 Console.WriteLine(item.ToString());
             }
+        }
+
+        private void InputDataShip(ref Ship ship)
+        {
+            Console.WriteLine("Input id of captain");
+            var captainId = ValidateInputData.InputId();
+            var repositoryCaptain = new CaptainRepository();
+            var captain = repositoryCaptain.SearchById(captainId);
+            if (captain == null)
+                throw new NullReferenceException(string.Format("Captain with id={0} doesn't exist", captainId));
+            ship.CaptainId = captain.Id;
+            Console.WriteLine("Input number of Ship");
+            ship.Number = ValidateInputData.InputNumber();
+            Console.WriteLine("Input capacity of Ship");
+            ship.Capacity = ValidateInputData.InputNumber();
+            Console.WriteLine("Input date of create (yyyy/mm/dd) the Ship");
+            ship.DateCreate = ValidateInputData.InputDate();
+            Console.WriteLine("Input max distance the Ship");
+            ship.MaxDistance = ValidateInputData.InputNumber();
+            Console.WriteLine("Input team count the Ship");
+            ship.TeamCount = ValidateInputData.InputNumber();
         }
     }
 }

@@ -1,27 +1,28 @@
 ﻿using System;
-using Port.Model;
-using Port.Model.Repository;
-namespace Port.App.ClassItemMenu
+using ManagerPort.Model.ClassModel;
+using ManagerPort.RepositoryDb;
+using ManagerPort.RepositoryDb.Repository;
+using ManagerPort.SupportClass;
+
+namespace ManagerPort.App.ClassItemMenu
 {
     class PortItem : ItemMenu
     {
-        readonly IRepository<Model.ClassModel.Port> _repository = new PortRepository();
-        private const string HeadTable = "Id\tFirstName  LastName  HasShip";
+        readonly IRepository<Port> _repository = new PortRepository();
+        private const string HeadTable = "Id\tName\tCityId";
 
         public override void Add()
         {
-            var newPort = new Model.ClassModel.Port();
-            Console.WriteLine("Input name of port");
-            newPort.Name = ValidateInputData.InputName();
-            Console.WriteLine("Input id of city");
-            newPort.CityId = ValidateInputData.InputId();
-            var repositoryCity = new CityRepository();
-            if (repositoryCity.SearchById(newPort.CityId) == null)
+            var newPort = new Port();
+            try
             {
-                Console.WriteLine("City with id={0} doesn't exist");
-                return;
+                InputDataPort(ref newPort);
+                _repository.Create(newPort);
             }
-            _repository.Create(newPort);
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public override void Remove()
@@ -32,12 +33,10 @@ namespace Port.App.ClassItemMenu
             if (port == null)
             {
                 Console.WriteLine("Port with id = {0} doesn't exist", id);
+                return;
             }
-            else
-            {
-                _repository.Remove(id);
-                Console.WriteLine("Port have been removed");
-            }
+            _repository.Remove(id);
+            Console.WriteLine("Port have been removed");
         }
 
         public override void Update()
@@ -50,22 +49,22 @@ namespace Port.App.ClassItemMenu
                 Console.WriteLine("Port with id = {0} doesn't exist", id);
                 return;
             }
-            else
-            {
-                Console.WriteLine("Id\tPort\tCityId");
-                Console.WriteLine(port.ToString());
-            }
+            Console.WriteLine(HeadTable);
+            Console.WriteLine(port.ToString());
             Console.WriteLine("Update this record?(y)");
             var choose = Console.ReadKey(true).KeyChar;
             if (Char.ToLower(choose) == 'y')
             {
-                Console.WriteLine("Input a new name for the port");
-                port.Name = ValidateInputData.InputName();
-                Console.WriteLine("Input a new id  of the city");
-                port.CityId = ValidateInputData.InputId();
-                _repository.Update(port);
+                try
+                {
+                    InputDataPort(ref port);
+                    _repository.Create(port);
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
-
         }
 
         public override void SearchById()
@@ -79,18 +78,29 @@ namespace Port.App.ClassItemMenu
             }
             else
             {
-                Console.WriteLine("Id\tPort\tCityId");
+                Console.WriteLine(HeadTable);
                 Console.WriteLine(port.ToString());
             }
         }
 
         public override void PrintAll()
         {
-            Console.WriteLine("Id\tPort\tCityId");
+            Console.WriteLine(HeadTable);
             foreach (var item in _repository.GetItemsList())
             {
                 Console.WriteLine(item.ToString());
             }
+        }
+
+        private void InputDataPort(ref Port port)
+        {
+            Console.WriteLine("Input name of port");
+            port.Name = ValidateInputData.InputName();
+            Console.WriteLine("Input id of city");
+            port.CityId = ValidateInputData.InputId();
+            var repositoryCity = new CityRepository();
+            if (repositoryCity.SearchById(port.CityId) == null)
+                throw new NullReferenceException(string.Format("City with id={0} doesn't exist", port.CityId));
         }
     }
 }
